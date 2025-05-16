@@ -1,0 +1,26 @@
+specVersion: 1.3.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: HeritageChainFactory
+    network: base
+    source:
+      address: "0xA6be830F487138DEADE738E5299C073AceA5B87d"
+      abi: HeritageChainFactory
+      startBlock: 30307757
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - HeritageChainCreated
+      abis:
+        - name: HeritageChainFactory
+          file: ./abis/HeritageChainFactory.json
+      eventHandlers:
+        - event: HeritageChainCreated(indexed address,address,uint256)
+          handler: handleHeritageChainCreated
+      file: ./src/heritage-chain-factory.ts
