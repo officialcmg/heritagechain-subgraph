@@ -16,11 +16,39 @@ dataSources:
       apiVersion: 0.0.9
       language: wasm/assemblyscript
       entities:
-        - HeritageChainCreated
+        - HeritageChainContract
       abis:
         - name: HeritageChainFactory
           file: ./abis/HeritageChainFactory.json
+        - name: HeritageChain
+          file: ./abis/HeritageChain.json
       eventHandlers:
         - event: HeritageChainCreated(indexed address,address,uint256)
           handler: handleHeritageChainCreated
       file: ./src/heritage-chain-factory.ts
+
+templates:
+  - kind: ethereum
+    name: HeritageChain
+    network: base
+    source:
+      abi: HeritageChain
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - HeritageChainContract
+      abis:
+        - name: HeritageChain
+          file: ./abis/HeritageChain.json
+      eventHandlers:
+        - event: TriggerSet(uint8,uint256)
+          handler: handleTriggerSet
+        - event: TriggerActivated(uint256)
+          handler: handleTriggerActivated
+        - event: DistributionExecuted(uint256)
+          handler: handleDistributionExecuted
+        - event: LegacyPlanCancelled(uint256)
+          handler: handleLegacyPlanCancelled
+      file: ./src/heritage-chain.ts

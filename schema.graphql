@@ -7,3 +7,13 @@ type HeritageChainCreated @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+type HeritageChainContract @entity(immutable: false) {
+  id: ID! # Contract address
+  creator: Bytes! # Address of the creator (owner)
+  createdAtTimestamp: BigInt!
+  triggerType: String # NONE, TIME_BASED, VOLUNTARY
+  triggerTimestamp: BigInt # 0 if not TIME_BASED
+  isTriggerActivated: Boolean!
+  isDistributed: Boolean!
+}
